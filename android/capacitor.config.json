@@ -1,0 +1,31 @@
+{
+  "appId": "com.dataomerta.dotraining",
+  "appName": "DO Training",
+  "webDir": ".",
+  "bundledWebRuntime": false,
+  "server": {
+    "url": "https://dataomerta.github.io/do-training",
+    "cleartext": true
+  },
+  "plugins": {
+    "SplashScreen": {
+      "launchShowDuration": 2000,
+      "backgroundColor": "#0a1628",
+      "androidSplashResourceName": "splash",
+      "showSpinner": false
+    },
+    "StatusBar": {
+      "style": "dark",
+      "backgroundColor": "#0a1628"
+    }
+  },
+  "android": {
+    "buildOptions": {
+      "keystorePath": "release.keystore",
+      "keystoreAlias": "do-training",
+      "minSdkVersion": 21,
+      "targetSdkVersion": 34,
+      "compileSdkVersion": 34
+    }
+  }
+}

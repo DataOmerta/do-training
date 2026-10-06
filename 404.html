@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Page Not Found — DO Training</title>
+<script>
+  // GitHub Pages SPA redirect trick
+  const path = window.location.pathname;
+  const search = window.location.search;
+  const hash = window.location.hash;
+  const query = '?p=' + encodeURIComponent(path.slice(1)) + (search ? '&q=' + encodeURIComponent(search.slice(1)) : '') + hash;
+  window.location.replace('/do-training/' + query);
+</script>
+</head>
+<body style="background:#080e1a;color:#e8edf5;font-family:sans-serif;display:flex;align-items:center;justify-content:center;min-height:100vh;text-align:center;">
+  <div>
+    <div style="font-size:3rem;font-weight:800;color:#1e56c8;margin-bottom:1rem;">D.O.</div>
+    <p>Redirecting...</p>
+    <a href="/do-training/" style="color:#4da6ff;">Return to DO Training</a>
+  </div>
+</body>
+</html>

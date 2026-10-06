@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover">
+<meta name="theme-color" content="#0a1628">
+<meta name="description" content="Expert cybersecurity, digital forensics, anti-trafficking and cyberbullying training by Dimitrios Paraschidis MSc.">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="DO Training">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="assets/icons/favicon.png" type="image/png">
+<link rel="apple-touch-icon" href="assets/icons/icon-192x192.png">
+<title>DO — Professional Cybersecurity Training</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body class="theme-blue">
+
+<div class="lang-bar" id="lang-bar" style="display:none">
+  <select id="lang-selector" onchange="setLang(this.value)" aria-label="Language">
+    <option value="en">EN</option><option value="el">EL</option><option value="de">DE</option>
+    <option value="it">IT</option><option value="fr">FR</option><option value="ru">RU</option>
+  </select>
+  <div class="theme-toggle-wrap">
+    <button class="theme-btn" onclick="setTheme('blue')" title="Default Blue">B</button>
+    <button class="theme-btn" onclick="setTheme('dark')" title="Dark">D</button>
+    <button class="theme-btn" onclick="setTheme('light')" title="Light">L</button>
+  </div>
+</div>
+
+<a href="https://paypal.me/JimOem" target="_blank" class="donate-btn" id="donate-btn" style="display:none">
+  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+  <span data-i18n="donate_text">Donate via PayPal</span>
+</a>
+<button class="webview-btn" onclick="toggleFullscreen()" id="webview-btn" style="display:none" title="Expand">
+  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg>
+</button>
+
+<!-- AD COLUMNS (admin-managed) -->
+<div class="ad-col left" id="ad-col-left"></div>
+<div class="ad-col right" id="ad-col-right"></div>
+
+<!-- ===== LANDING ===== -->
+<div id="landing-page">
+  <div class="landing-bg">
+    <img id="landing-bg-sine" src="" alt="" class="landing-bg-sine">
+    <img id="landing-logo-watermark" src="" alt="" class="landing-logo-watermark">
+    <div class="landing-overlay"></div>
+  </div>
+  <div class="landing-content">
+    <img id="landing-logo-top" src="" alt="Data Omerta D.O." class="landing-logo-top">
+    <div class="landing-badge" data-i18n="landing_badge">Limited Early Access — First 1,000 Users Get 10% Off</div>
+    <h1 class="landing-title" data-i18n="landing_title">Educate. Empower. Protect.</h1>
+    <p class="landing-sub" data-i18n="landing_sub">Expert-led 1-on-1 and group training in Cybersecurity, Digital Forensics, Anti-Trafficking, and Cyberbullying Prevention by a certified MSc practitioner.</p>
+    <div class="landing-actions">
+      <button class="btn-land-primary" onclick="enterSite()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 8 16 12 12 16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+        <span data-i18n="landing_enter">Enter the Platform</span>
+      </button>
+      <button class="btn-land-secondary" onclick="enterSiteBook()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        <span data-i18n="landing_book">Reserve Your Session Today</span>
+      </button>
+    </div>
+    <div class="landing-discount-hint">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#4da6ff" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+      <span>2 modules = 20% off &nbsp;|&nbsp; 3+ modules = 30% off &nbsp;|&nbsp; First 1,000 users: extra 10%</span>
+    </div>
+  </div>
+</div>
+
+<!-- ===== MAIN PLATFORM ===== -->
+<div id="main-platform" style="display:none">
+
+<nav class="navbar">
+  <div class="nav-brand" onclick="showTab('home',null)">
+    <img id="nav-logo" src="" alt="D.O." class="nav-logo-img">
+    <div>
+      <div class="brand-name">Dimitrios Paraschidis</div>
+      <div class="brand-tagline">MSc Digital Forensics &middot; Cybersecurity Educator</div>
+    </div>
+  </div>
+  <div class="nav-links" id="nav-links">
+    <a href="#home"      class="nav-link active" onclick="showTab('home',this)"      data-i18n="nav_home">Home</a>
+    <a href="#services"  class="nav-link"         onclick="showTab('services',this)"  data-i18n="nav_services">Services</a>
+    <a href="#modules"   class="nav-link"         onclick="showTab('modules',this)"   data-i18n="nav_modules">Modules</a>
+    <a href="#resources" class="nav-link"         onclick="showTab('resources',this)" data-i18n="nav_resources">Resources</a>
+    <a href="#team"      class="nav-link"         onclick="showTab('team',this)"      data-i18n="nav_team">Our Team</a>
+    <a href="#calendar"  class="nav-link"         onclick="showTab('calendar',this)"  data-i18n="nav_book">Book a Session</a>
+    <a href="#contact"   class="nav-link"         onclick="showTab('contact',this)"   data-i18n="contact_title">Contact</a>
+    <a href="#cv"        class="nav-link"         onclick="showTab('cv',this)"        data-i18n="nav_cv">My CV</a>
+  </div>
+  <div class="nav-right">
+    <button class="nav-mobile-toggle" onclick="toggleMobileNav()">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+  </div>
+</nav>
+
+<div class="ticker-wrap"><div class="ticker-track" id="ticker-track"></div></div>
+
+<!-- HOME -->
+<div id="tab-home" class="tab-content active">
+  <section class="hero">
+    <img id="hero-logo-wm" src="" alt="" class="hero-logo-watermark" style="top:55%;opacity:0.12;">
+    <div class="hero-overlay"></div>
+    <div class="hero-inner">
+      <div class="hero-badge" data-i18n="hero_badge">Thessaloniki, Greece &middot; Online &amp; Onsite Worldwide</div>
+      <h1 class="hero-title" data-i18n="hero_title">Educate. Empower. Protect.</h1>
+      <p class="hero-subtitle">Professional training in Cybersecurity, Digital Forensics, Anti-Trafficking Digital Safety, and Cyberbullying Prevention — delivered by a certified MSc practitioner with a decade of field experience.</p>
+      <div class="hero-cta">
+        <button class="btn btn-primary" onclick="showTab('calendar',null)">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          <span data-i18n="btn_book">Book a Session</span>
+        </button>
+        <button class="btn btn-outline" onclick="showTab('modules',null)">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+          <span data-i18n="btn_modules">View Modules</span>
+        </button>
+      </div>
+      <!-- Stats compact: 155+, 600+, 60K+, MSc, 3, Custom SOC Lab all in one line -->
+      <div class="hero-stats-compact">
+        <div class="stat-compact"><span class="stat-compact-num">155+</span><span class="stat-compact-lbl">Professionals Trained</span></div>
+        <div class="stat-compact"><span class="stat-compact-num">600+</span><span class="stat-compact-lbl">Individuals Reached</span></div>
+        <div class="stat-compact"><span class="stat-compact-num">60K+</span><span class="stat-compact-lbl">Beneficiaries Protected</span></div>
+        <div class="stat-compact"><span class="stat-compact-num">MSc</span><span class="stat-compact-lbl">Digital Forensics</span></div>
+        <div class="stat-compact"><span class="stat-compact-num">3</span><span class="stat-compact-lbl">Books Authored</span></div>
+        <div class="stat-compact"><span class="stat-compact-num" style="font-size:1rem">Custom</span><span class="stat-compact-lbl" data-i18n="stat_soc">Personal SOC Lab</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2 class="section-title" data-i18n="who_title">Who This Is For</h2>
+    <div class="cards-grid" id="who-cards"></div>
+  </section>
+
+  <section class="section-full">
+    <div class="section-inner">
+      <h2 class="section-title light" data-i18n="formats_title">Formats &amp; Delivery</h2>
+      <div class="formats-grid" id="formats-grid"></div>
+      <div class="discount-banner">
+        <div class="discount-item"><span class="disc-pct">20%</span><span class="disc-label" data-i18n="discount_2">Off for 2 Modules</span></div>
+        <div class="discount-divider"></div>
+        <div class="discount-item"><span class="disc-pct">30%</span><span class="disc-label" data-i18n="discount_3">Off for 3+ Modules</span></div>
+        <div class="discount-divider"></div>
+        <div class="discount-item highlight"><span class="disc-pct">+10%</span><span class="disc-label" data-i18n="discount_first">First 1,000 Users</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section page-bg">
+    <h2 class="section-title" data-i18n="numbers_title">By the Numbers</h2>
+    <p class="section-subtitle" data-i18n="numbers_sub">Key statistics from field research, academic sources, and real-world operations.</p>
+    <div class="numbers-grid" id="numbers-grid"></div>
+  </section>
+</div>
+
+<!-- SERVICES -->
+<div id="tab-services" class="tab-content page-bg">
+  <section class="section">
+    <h2 class="section-title" data-i18n="services_title">Training Services</h2>
+    <p class="section-subtitle" data-i18n="services_sub">Click any service to book it directly. Every session concludes with a professional certificate.</p>
+    <div id="services-container"></div>
+  </section>
+</div>
+
+<!-- MODULES -->
+<div id="tab-modules" class="tab-content page-bg">
+  <section class="section">
+    <h2 class="section-title" data-i18n="modules_title">Training Modules</h2>
+    <p class="section-subtitle" data-i18n="modules_sub">Each module is a standalone certifiable unit. 2 modules: 20% off — 3+: 30% off.</p>
+    <div class="modules-grid" id="modules-grid"></div>
+  </section>
+</div>
+
+<!-- RESOURCES (no translation, no bg) -->
+<div id="tab-resources" class="tab-content">
+  <section class="section">
+    <h2 class="section-title">Resources &amp; Publications</h2>
+    <p class="section-subtitle">Free professional resources — available to all.</p>
+    <div class="resources-hero">
+      <img id="res-do-img" src="" alt="Data Omerta" class="res-do-logo">
+      <div><h3>Data Omerta (D.O.)</h3><p>A personal initiative dedicated to spreading cybersecurity awareness and open knowledge. All resources are free to use and share.</p></div>
+    </div>
+    <div class="resources-grid" id="resources-grid"></div>
+    <div class="linkedin-section">
+      <h3 class="section-title" style="margin-bottom:1rem;">Recent Professional Activity</h3>
+      <div class="linkedin-posts-grid" id="linkedin-posts-grid"></div>
+      <a href="https://www.linkedin.com/in/dimitris-p-timeless" target="_blank" class="btn-linkedin">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+        View All on LinkedIn
+      </a>
+    </div>
+  </section>
+</div>
+
+<!-- TEAM -->
+<div id="tab-team" class="tab-content page-bg">
+  <section class="section">
+    <h2 class="section-title" data-i18n="team_title">Our D.O. Team &amp; Partners</h2>
+    <p class="section-subtitle" data-i18n="team_sub">Specialists, partners, and collaborators in cybersecurity, digital safety, and education. Contact details visible after confirmed booking.</p>
+    <div class="team-grid" id="team-grid"></div>
+  </section>
+</div>
+
+<!-- BOOKING -->
+<div id="tab-calendar" class="tab-content page-bg">
+  <section class="section">
+    <h2 class="section-title" data-i18n="book_title">Book a Session</h2>
+    <p class="section-subtitle" data-i18n="book_sub">Select a date and time. Confirmation and Google Meet link sent automatically.</p>
+    <div class="booking-layout">
+      <div class="booking-left">
+        <div class="calendar-header">
+          <button class="cal-nav" onclick="changeMonth(-1)">&#8249;</button>
+          <span id="cal-month-label"></span>
+          <button class="cal-nav" onclick="changeMonth(1)">&#8250;</button>
+        </div>
+        <div class="calendar-grid" id="calendar-grid"></div>
+        <div class="time-slots" id="time-slots-container" style="display:none">
+          <h4 id="selected-date-label"></h4>
+          <div class="slots-grid" id="slots-grid"></div>
+        </div>
+      </div>
+      <div class="booking-right">
+        <div class="booking-form-card">
+          <h3 data-i18n="book_title">Session Details</h3>
+          <div id="booking-summary" class="booking-summary" style="display:none"></div>
+          <div class="form-group"><label data-i18n="form_name">Full Name</label><input type="text" id="book-name"></div>
+          <div class="form-group"><label data-i18n="form_email">Email</label><input type="email" id="book-email"></div>
+          <div class="form-group"><label data-i18n="form_phone">Phone</label><input type="tel" id="book-phone"></div>
+          <div class="form-group"><label data-i18n="form_module">Training Module</label><select id="book-module" onchange="updateDiscountPreview()"></select></div>
+          <div class="form-group"><label data-i18n="form_module2">Second Module (optional)</label><select id="book-module2" onchange="updateDiscountPreview()"></select></div>
+          <div class="form-group"><label data-i18n="form_module3">Third Module (optional)</label><select id="book-module3" onchange="updateDiscountPreview()"></select></div>
+          <div id="discount-preview" class="discount-preview" style="display:none"></div>
+          <div class="form-group"><label data-i18n="form_format">Format</label><select id="book-format"></select></div>
+          <div class="form-group"><label data-i18n="form_org">Organisation (optional)</label><input type="text" id="book-org"></div>
+          <div class="form-group"><label data-i18n="form_notes">Notes</label><textarea id="book-notes" rows="3"></textarea></div>
+          <button class="btn btn-primary btn-full" onclick="submitBooking()" data-i18n="form_confirm">Confirm Booking</button>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- CONTACT -->
+<div id="tab-contact" class="tab-content page-bg">
+  <section class="section">
+    <h2 class="section-title" data-i18n="contact_title">Contact &amp; Inquiry</h2>
+    <p class="section-subtitle" data-i18n="contact_sub">Send a message and I will respond within 24 hours.</p>
+    <div class="contact-layout">
+      <div class="contact-form-card">
+        <div class="form-group"><label data-i18n="form_name">Full Name</label><input type="text" id="contact-name"></div>
+        <div class="form-group"><label data-i18n="form_email">Email</label><input type="email" id="contact-email"></div>
+        <div class="form-group"><label data-i18n="contact_subject">Subject</label><input type="text" id="contact-subject"></div>
+        <div class="form-group"><label data-i18n="contact_message">Message</label><textarea id="contact-message" rows="6"></textarea></div>
+        <button class="btn btn-primary btn-full" onclick="submitContact()" data-i18n="contact_send">Send Message</button>
+      </div>
+      <div class="contact-info-card">
+        <div class="contact-info-item">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          <div><strong data-i18n="lbl_location">Location</strong><span>Thessaloniki, Greece</span></div>
+        </div>
+        <div class="contact-info-item">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          <div><strong>Email</strong><span>gds_gr@hotmail.gr</span></div>
+        </div>
+        <div class="contact-info-item">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.56 1h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 8a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 14.92z"/></svg>
+          <div><strong data-i18n="lbl_phone">Phone</strong><span>+30 6947 424 107</span></div>
+        </div>
+        <div class="contact-info-item">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+          <div><strong>LinkedIn</strong><a href="https://www.linkedin.com/in/dimitris-p-timeless" target="_blank">dimitris-p-timeless</a></div>
+        </div>
+        <!-- BILLING INFO between the items -->
+        <div class="billing-info-box" style="margin-top:1.5rem;margin-bottom:1.5rem;">
+          <div class="billing-item"><span class="b-val">€100</span><span class="b-lbl" data-i18n="bill_hourly">Per Hour — 1-on-1 Training</span><span class="b-note" data-i18n="bill_hourly_note">Modules minimum 2 hours each</span></div>
+          <div class="billing-item"><span class="b-val">€400</span><span class="b-lbl" data-i18n="bill_advance">Non-Refundable Advance</span><span class="b-note" data-i18n="bill_advance_note">Required before corporate service delivery</span></div>
+          <div class="billing-item"><span class="b-val">20–30%</span><span class="b-lbl" data-i18n="bill_discount">Bundle Discount</span><span class="b-note" data-i18n="bill_discount_note">2 modules: 20% off &nbsp;|&nbsp; 3+ modules: 30% off</span></div>
+        </div>
+        <div class="pricing-note">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+          <div><strong data-i18n="lbl_pricing">Pricing</strong><span data-i18n="pricing_note">All prices include a professional certificate of participation. Group and corporate rates available on request.</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- CV -->
+<div id="tab-cv" class="tab-content page-bg">
+  <section class="section cv-section" id="cv-section-content"></section>
+</div>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <img id="footer-logo" src="" alt="D.O." class="footer-logo-img">
+    <div>
+      <div class="footer-name">Dimitrios Paraschidis &middot; MSc Digital Forensics &middot; Cybersecurity Educator</div>
+      <div class="footer-links">
+        <span>Thessaloniki, Greece</span><span>gds_gr@hotmail.gr</span><span>+30 6947 424 107</span>
+        <a href="https://www.linkedin.com/in/dimitris-p-timeless" target="_blank">LinkedIn</a>
+        <a href="https://github.com/DataOmerta" target="_blank">GitHub</a>
+      </div>
+    </div>
+    <div class="footer-right"><img id="footer-do-text" src="" alt="Data Omerta" class="footer-do-text-img"></div>
+  </div>
+</footer>
+</div><!-- /main-platform -->
+
+<!-- ADMIN LOGIN -->
+<div id="admin-login-overlay" style="display:none">
+  <div class="admin-login-box">
+    <img id="admin-logo" src="" alt="D.O." class="admin-logo-img">
+    <h2>Admin Access</h2>
+    <p>Restricted area — authorised personnel only.</p>
+    <div class="form-group"><label>Username</label><input type="text" id="admin-user" autocomplete="username"></div>
+    <div class="form-group"><label>Password</label><input type="password" id="admin-pass" autocomplete="current-password" onkeydown="if(event.key==='Enter')doAdminLogin()"></div>
+    <label class="remember-label"><input type="checkbox" id="admin-remember"> Remember me on this device</label>
+    <button class="btn btn-primary btn-full" onclick="doAdminLogin()" style="margin-top:1rem;">Sign In</button>
+    <button class="btn btn-outline btn-full" onclick="closeAdminLogin()" style="margin-top:.5rem;">Cancel</button>
+  </div>
+</div>
+
+<!-- ADMIN PANEL -->
+<div id="admin-panel" style="display:none">
+  <div class="admin-navbar">
+    <div class="admin-brand">
+      <img id="admin-nav-logo" src="" alt="D.O." style="width:28px;height:28px;object-fit:contain;">
+      <span>Admin Panel</span>
+    </div>
+    <div class="admin-nav-links">
+      <button class="admin-nav-btn active" onclick="showAdminTab('dashboard',this)">Dashboard</button>
+      <button class="admin-nav-btn" onclick="showAdminTab('appointments',this)">Appointments</button>
+      <button class="admin-nav-btn" onclick="showAdminTab('modules-mgr',this)">Modules</button>
+      <button class="admin-nav-btn" onclick="showAdminTab('services-mgr',this)">Services</button>
+      <button class="admin-nav-btn" onclick="showAdminTab('resources-mgr',this)">Resources</button>
+      <button class="admin-nav-btn" onclick="showAdminTab('team-mgr',this)">Team</button>
+      <button class="admin-nav-btn" onclick="showAdminTab('ads-mgr',this)">Advertisers</button>
+      <button class="admin-nav-btn" onclick="showAdminTab('certificates-mgr',this)">Certificates</button>
+    </div>
+    <button class="btn btn-outline" onclick="adminLogout()" style="font-size:12px;padding:6px 14px;">Sign Out</button>
+  </div>
+  <div class="admin-content">
+    <div id="admin-tab-dashboard" class="admin-tab active"><h2 class="admin-title">Dashboard</h2><div class="admin-stats-grid" id="admin-stats-grid"></div><div id="admin-chart-row"></div></div>
+    <div id="admin-tab-appointments" class="admin-tab">
+      <div class="admin-tab-header"><h2 class="admin-title">Appointments</h2><button class="btn btn-secondary" onclick="exportAppointments()">Export CSV</button></div>
+      <div class="appointments-toolbar">
+        <input type="text" id="appt-search" placeholder="Search..." oninput="filterAppointments()">
+        <select id="appt-filter" onchange="filterAppointments()"><option value="">All</option><option value="confirmed">Confirmed</option><option value="pending">Pending</option><option value="completed">Completed</option><option value="cancelled">Cancelled</option></select>
+      </div>
+      <div id="appointments-list"></div>
+    </div>
+    <div id="admin-tab-modules-mgr" class="admin-tab"><div class="admin-tab-header"><h2 class="admin-title">Manage Modules</h2><button class="btn btn-primary" onclick="openModuleEditor(null)">+ Add Module</button></div><div id="modules-manager-list"></div></div>
+    <div id="admin-tab-services-mgr" class="admin-tab"><div class="admin-tab-header"><h2 class="admin-title">Manage Services</h2><button class="btn btn-primary" onclick="openServiceEditor(null,null)">+ Add Service</button></div><div id="services-manager-list"></div></div>
+    <div id="admin-tab-resources-mgr" class="admin-tab"><div class="admin-tab-header"><h2 class="admin-title">Manage Resources</h2><button class="btn btn-primary" onclick="openResourceEditor(null)">+ Add Resource</button></div><div id="resources-manager-list"></div></div>
+    <div id="admin-tab-team-mgr" class="admin-tab"><div class="admin-tab-header"><h2 class="admin-title">Team &amp; Partners</h2><button class="btn btn-primary" onclick="openTeamEditor(null)">+ Add Member</button></div><div id="team-manager-list"></div></div>
+    <div id="admin-tab-ads-mgr" class="admin-tab"><div class="admin-tab-header"><h2 class="admin-title">Advertisers &amp; Ads</h2><button class="btn btn-primary" onclick="openAdEditor(null)">+ Add Ad</button></div><p class="section-subtitle">Ads appear in vertical columns on the left and right sides of the site for visitors.</p><div id="ads-manager-list"></div></div>
+    <div id="admin-tab-certificates-mgr" class="admin-tab">
+      <h2 class="admin-title">Issue Certificate</h2>
+      <div class="cert-layout">
+        <div class="cert-form-panel">
+          <h3>Certificate Details</h3>
+          <div class="form-group"><label>Participant Full Name *</label><input type="text" id="cert-name" oninput="updateCertPreview()"></div>
+          <div class="form-group"><label>Module / Training Title *</label><input type="text" id="cert-module" oninput="updateCertPreview()"></div>
+          <div class="form-group"><label>Completion Date *</label><input type="date" id="cert-date" oninput="updateCertPreview()"></div>
+          <div class="form-group"><label>Duration</label><input type="text" id="cert-duration" placeholder="e.g. 4 hours" oninput="updateCertPreview()"></div>
+          <div class="form-group"><label>Organisation (optional)</label><input type="text" id="cert-org" oninput="updateCertPreview()"></div>
+          <div class="form-group"><label>Certificate ID (auto)</label><input type="text" id="cert-id" readonly></div>
+          <button class="btn btn-primary btn-full" onclick="generateCertificate()">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Generate &amp; Print Certificate
+          </button>
+        </div>
+        <div class="cert-preview-panel">
+          <h3>Live Preview</h3>
+          <div class="cert-preview" id="cert-preview"><div class="cert-preview-placeholder">Fill in the details to preview</div></div>
+          <div id="issued-certs-section" style="display:none;margin-top:1.5rem"><h4 style="color:var(--text);margin-bottom:.75rem">Previously Issued</h4><div id="issued-certs-list"></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MODALS -->
+<div id="upsell-modal" class="modal-overlay" style="display:none"><div class="modal-box"><button class="modal-close" onclick="closeUpsell()"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button><div id="upsell-content"></div></div></div>
+<div id="edit-modal" class="modal-overlay" style="display:none"><div class="modal-box" id="edit-modal-content"></div></div>
+<div id="appt-edit-modal" class="modal-overlay" style="display:none"><div class="modal-box" id="appt-edit-content"></div></div>
+<div id="toast" class="toast" style="display:none"></div>
+
+<script src="js/images.js"></script>
+<script src="js/i18n.js"></script>
+<script src="js/app.js"></script>
+<script src="js/calendar.js"></script>
+<script src="js/certificates.js"></script>
+<script src="js/admin.js"></script>
+</body>
+</html>
