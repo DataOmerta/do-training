@@ -2,7 +2,7 @@
 
 const ADMIN_USER = 'admin';
 // ⚠️ CRITICAL: Change this to a strong, unique password before pushing to GitHub!
-const ADMIN_PASS = 'ChangeThisToYourOwnStrongPassword2024!'; 
+const ADMIN_PASS = 'admin123!@#'; 
 
 function doAdminLogin() {
   const user = document.getElementById('admin-user')?.value.trim();
