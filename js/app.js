@@ -269,11 +269,7 @@ function updateDiscountPreview(){
 let appointments=[];
 try{appointments=JSON.parse(localStorage.getItem('do_appointments')||'[]');}catch(e){appointments=[];}
 if(!appointments.length){
-  appointments=[
-    {id:'APT001',name:'Maria Economou',email:'maria@example.com',module:'Cybersecurity Fundamentals',module2:'',module3:'',date:'2026-10-15',time:'10:00',format:'Online (Zoom / Teams / Meet)',org:'Eurobank HR',status:'confirmed',notes:'',meetLink:'https://meet.google.com/apt-001d-emox'},
-    {id:'APT002',name:'Nikos Stavros',email:'nikos@example.com',module:'GDPR & Data Protection',module2:'Social Engineering & Phishing Defence',module3:'',date:'2026-10-18',time:'14:00',format:'Online (Zoom / Teams / Meet)',org:'',status:'pending',notes:'20% discount applied.',meetLink:'https://meet.google.com/apt-002n-ikst'},
-    {id:'APT003',name:'Eleni Papadaki',email:'eleni@example.com',module:'Child Online Safety Seminar',module2:'',module3:'',date:'2026-09-20',time:'11:00',format:'Onsite — Thessaloniki',org:'2nd High School Thessaloniki',status:'completed',notes:'',meetLink:''},
-  ];
+  appointments=[];
   saveAppointments();
 }
 function saveAppointments(){try{localStorage.setItem('do_appointments',JSON.stringify(appointments));}catch(e){}}
