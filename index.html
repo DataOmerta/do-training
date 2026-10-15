@@ -369,7 +369,7 @@
     <div id="admin-tab-dashboard" class="admin-tab active"><h2 class="admin-title">Dashboard</h2><div class="admin-stats-grid" id="admin-stats-grid"></div><div id="admin-chart-row"></div></div>
     <div id="admin-tab-appointments" class="admin-tab">
       <div class="admin-tab-header"><h2 class="admin-title">Appointments</h2><button class="btn btn-secondary" onclick="exportAppointments()">Export CSV</button></div>
-      <div class="appointments-toolbar">
+   <div class="appointments-toolbar">
   <input type="text" id="appt-search" placeholder="Search..." oninput="filterAppointments()">
   <select id="appt-filter" onchange="filterAppointments()">
     <option value="">All</option>
@@ -378,9 +378,9 @@
     <option value="completed">Completed</option>
     <option value="cancelled">Cancelled</option>
   </select>
-  <!-- NEW CLEAR ALL BUTTON -->
   <button class="btn" onclick="clearAllAppointments()" style="margin-left:auto; background:#ef4444; color:white; border:none; padding:8px 16px; border-radius:4px; cursor:pointer; font-weight:600;">Clear All</button>
 </div>
+
       <div id="appointments-list"></div>
     </div>
     <div id="admin-tab-modules-mgr" class="admin-tab"><div class="admin-tab-header"><h2 class="admin-title">Manage Modules</h2><button class="btn btn-primary" onclick="openModuleEditor(null)">+ Add Module</button></div><div id="modules-manager-list"></div></div>
