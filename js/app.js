@@ -267,10 +267,6 @@ function updateDiscountPreview(){
 
 // APPOINTMENTS
 let appointments=[];
-try{appointments=JSON.parse(localStorage.getItem('do_appointments')||'[]');}catch(e){appointments=[];}
-if(!appointments.length){
-  appointments=[];
-  saveAppointments();
 }
 function saveAppointments(){try{localStorage.setItem('do_appointments',JSON.stringify(appointments));}catch(e){}}
 
@@ -312,10 +308,8 @@ function submitBooking(){
 
 
 
-// CONTACT FORM (Handled by FormSubmit.co in HTML)
-function submitContact(){
-  // This function is kept to prevent console errors, but the HTML form 
-  // now handles the actual submission securely via FormSubmit.co.
+function submitContact() {
+  // Handled securely by FormSubmit.co in HTML. This prevents console errors.
   showToast('Message sent. You will hear back within 24 hours.');
 }
 
