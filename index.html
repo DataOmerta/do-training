@@ -257,30 +257,36 @@
     <h2 class="section-title" data-i18n="contact_title">Contact &amp; Inquiry</h2>
     <p class="section-subtitle" data-i18n="contact_sub">Send a message and I will respond within 24 hours.</p>
     <div class="contact-layout">
-      <div class="contact-form-card">
-        <div class="form-group"><label data-i18n="form_name">Full Name</label><input type="text" id="contact-name"></div>
-        <div class="form-group"><label data-i18n="form_email">Email</label><input type="email" id="contact-email"></div>
-        <div class="form-group"><label data-i18n="contact_subject">Subject</label><input type="text" id="contact-subject"></div>
-        <div class="form-group"><label data-i18n="contact_message">Message</label><textarea id="contact-message" rows="6"></textarea></div>
-        <button class="btn btn-primary btn-full" onclick="submitContact()" data-i18n="contact_send">Send Message</button>
-      </div>
-      <div class="contact-info-card">
-        <div class="contact-info-item">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-          <div><strong data-i18n="lbl_location">Location</strong><span>Thessaloniki, Greece</span></div>
-        </div>
-        <div class="contact-info-item">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-          <div><strong>Email</strong><span>gds_gr@hotmail.gr</span></div>
-        </div>
-        <div class="contact-info-item">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.56 1h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 8a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 14.92z"/></svg>
-          <div><strong data-i18n="lbl_phone">Phone</strong><span>+30 6947 424 107</span></div>
-        </div>
-        <div class="contact-info-item">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
-          <div><strong>LinkedIn</strong><a href="https://www.linkedin.com/in/dimitris-p-timeless" target="_blank">dimitris-p-timeless</a></div>
-        </div>
+     <div class="contact-form-card">
+  <!-- FormSubmit.co handles the email sending securely -->
+  <form action="https://formsubmit.co/gds_gr@hotmail.gr" method="POST">
+    <!-- Anti-spam honeypot (hidden) -->
+    <input type="text" name="_honey" style="display:none">
+    <!-- Disable captcha for smoother experience -->
+    <input type="hidden" name="_captcha" value="false">
+    <!-- Redirect back to your site after sending -->
+    <input type="hidden" name="_next" value="https://dataomerta.github.io/do-training/#contact">
+    <input type="hidden" name="_subject" value="New Inquiry from Data Omerta Website">
+
+    <div class="form-group">
+      <label data-i18n="form_name">Full Name</label>
+      <input type="text" name="name" required>
+    </div>
+    <div class="form-group">
+      <label data-i18n="form_email">Email</label>
+      <input type="email" name="email" required>
+    </div>
+    <div class="form-group">
+      <label data-i18n="contact_subject">Subject</label>
+      <input type="text" name="subject" required>
+    </div>
+    <div class="form-group">
+      <label data-i18n="contact_message">Message</label>
+      <textarea name="message" rows="6" required></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary btn-full" data-i18n="contact_send">Send Message</button>
+  </form>
+</div>
         <!-- BILLING INFO between the items -->
         <div class="billing-info-box" style="margin-top:1.5rem;margin-bottom:1.5rem;">
           <div class="billing-item"><span class="b-val">€100</span><span class="b-lbl" data-i18n="bill_hourly">Per Hour — 1-on-1 Training</span><span class="b-note" data-i18n="bill_hourly_note">Modules minimum 2 hours each</span></div>
