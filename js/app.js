@@ -301,7 +301,7 @@ function submitBooking(){
   const appt={id,name,email,module:mod,module2:mod2,module3:mod3,date:selectedDate,time:selectedTime,format:fmt,org:document.getElementById('book-org')?.value.trim()||'',notes:document.getElementById('book-notes')?.value.trim()||'',status:'pending',meetLink,discount:disc,bookedAt:new Date().toISOString()};
   appointments.unshift(appt);saveAppointments();
   showToast(`Booking submitted. ID: ${id}${disc?' — '+disc+' discount noted.':''}`);
-  sendAdminNotificationEmail(appt);
+  
   ['book-name','book-email','book-phone','book-org','book-notes'].forEach(i=>{const e=document.getElementById(i);if(e)e.value='';});
   ['book-module','book-module2','book-module3','book-format'].forEach(i=>{const e=document.getElementById(i);if(e)e.value='';});
   const dp=document.getElementById('discount-preview');if(dp)dp.style.display='none';
@@ -310,23 +310,13 @@ function submitBooking(){
   setTimeout(()=>showUpsell(mod,id),1200);
 }
 
-// EMAILJS
-const EMAILJS_CONFIG={publicKey:'YOUR_EMAILJS_PUBLIC_KEY',serviceId:'YOUR_EMAILJS_SERVICE_ID',adminTemplateId:'YOUR_ADMIN_NOTIFICATION_TEMPLATE_ID',clientConfirmTemplateId:'YOUR_CLIENT_CONFIRM_TEMPLATE_ID'};
-function loadEmailJS(){if(window.emailjs)return Promise.resolve();return new Promise((res,rej)=>{const s=document.createElement('script');s.src='https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js';s.onload=()=>{window.emailjs.init(EMAILJS_CONFIG.publicKey);res();};s.onerror=rej;document.head.appendChild(s);});}
-function sendAdminNotificationEmail(appt){if(EMAILJS_CONFIG.publicKey==='YOUR_EMAILJS_PUBLIC_KEY')return;loadEmailJS().then(()=>{const mods=[appt.module,appt.module2,appt.module3].filter(Boolean).join(' + ');window.emailjs.send(EMAILJS_CONFIG.serviceId,EMAILJS_CONFIG.adminTemplateId,{to_email:'gds_gr@hotmail.gr',booking_id:appt.id,client_name:appt.name,client_email:appt.email,client_org:appt.org||'Not specified',modules:mods,date:appt.date,time:appt.time,format:appt.format,meet_link:appt.meetLink||'N/A (onsite)',discount:appt.discount||'None',notes:appt.notes||'None'}).catch(()=>{}); }).catch(()=>{});}
-function sendClientConfirmEmail(appt){if(EMAILJS_CONFIG.publicKey==='YOUR_EMAILJS_PUBLIC_KEY')return;loadEmailJS().then(()=>{const mods=[appt.module,appt.module2,appt.module3].filter(Boolean).join(' + ');window.emailjs.send(EMAILJS_CONFIG.serviceId,EMAILJS_CONFIG.clientConfirmTemplateId,{to_email:appt.email,client_name:appt.name,modules:mods,date:appt.date,time:appt.time,format:appt.format,meet_link:appt.meetLink||'Will be confirmed onsite',discount:appt.discount?appt.discount+' discount applied':'Standard pricing',trainer_name:'Dimitrios Paraschidis',trainer_email:'gds_gr@hotmail.gr',trainer_phone:'+30 6947 424 107'}).catch(()=>{}); }).catch(()=>{});}
-function sendContactEmail(name,email,subject,message){if(EMAILJS_CONFIG.publicKey==='YOUR_EMAILJS_PUBLIC_KEY')return;loadEmailJS().then(()=>{window.emailjs.send(EMAILJS_CONFIG.serviceId,EMAILJS_CONFIG.adminTemplateId,{to_email:'gds_gr@hotmail.gr',client_name:name,client_email:email,booking_id:'CONTACT',modules:subject,date:new Date().toISOString().slice(0,10),time:'',format:'Contact Form',meet_link:'',discount:'',notes:message}).catch(()=>{}); }).catch(()=>{});}
 
-// CONTACT FORM
+
+// CONTACT FORM (Handled by FormSubmit.co in HTML)
 function submitContact(){
-  const name=document.getElementById('contact-name')?.value.trim();
-  const email=document.getElementById('contact-email')?.value.trim();
-  const subject=document.getElementById('contact-subject')?.value.trim();
-  const msg=document.getElementById('contact-message')?.value.trim();
-  if(!name||!email||!msg){showToast('Please fill in name, email and message.');return;}
-  sendContactEmail(name,email,subject,msg);
+  // This function is kept to prevent console errors, but the HTML form 
+  // now handles the actual submission securely via FormSubmit.co.
   showToast('Message sent. You will hear back within 24 hours.');
-  ['contact-name','contact-email','contact-subject','contact-message'].forEach(i=>{const e=document.getElementById(i);if(e)e.value='';});
 }
 
 // UPSELL
