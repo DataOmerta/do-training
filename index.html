@@ -233,19 +233,19 @@
       </div>
       <div class="booking-right">
         <div class="booking-form-card">
-          <h3 data-i18n="book_title">Session Details</h3>
-          <div id="booking-summary" class="booking-summary" style="display:none"></div>
-          <div class="form-group"><label data-i18n="form_name">Full Name</label><input type="text" id="book-name"></div>
-          <div class="form-group"><label data-i18n="form_email">Email</label><input type="email" id="book-email"></div>
-          <div class="form-group"><label data-i18n="form_phone">Phone</label><input type="tel" id="book-phone"></div>
-          <div class="form-group"><label data-i18n="form_module">Training Module</label><select id="book-module" onchange="updateDiscountPreview()"></select></div>
-          <div class="form-group"><label data-i18n="form_module2">Second Module (optional)</label><select id="book-module2" onchange="updateDiscountPreview()"></select></div>
-          <div class="form-group"><label data-i18n="form_module3">Third Module (optional)</label><select id="book-module3" onchange="updateDiscountPreview()"></select></div>
-          <div id="discount-preview" class="discount-preview" style="display:none"></div>
-          <div class="form-group"><label data-i18n="form_format">Format</label><select id="book-format"></select></div>
-          <div class="form-group"><label data-i18n="form_org">Organisation (optional)</label><input type="text" id="book-org"></div>
-          <div class="form-group"><label data-i18n="form_notes">Notes</label><textarea id="book-notes" rows="3"></textarea></div>
-          <button class="btn btn-primary btn-full" onclick="submitBooking()" data-i18n="form_confirm">Confirm Booking</button>
+        <!-- New Clean Booking Button -->
+<div style="text-align: center; margin-top: 20px; margin-bottom: 40px;">
+    <p style="color: #ffffff; margin-bottom: 15px; font-size: 16px;">
+        Select a date and time. Confirmation and Google Meet link are sent automatically.
+    </p>
+    
+    <!-- This button triggers the popup -->
+    <button type="button" 
+            data-cal-link="jim-oem-wsbkja/cybersecurity-training" 
+            style="background-color: #2563eb; color: white; padding: 12px 24px; border: none; border-radius: 5px; font-size: 16px; cursor: pointer; font-weight: bold;">
+        Book a Session Now
+    </button>
+</div>
         </div>
       </div>
     </div>
