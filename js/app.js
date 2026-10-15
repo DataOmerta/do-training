@@ -79,7 +79,6 @@ const TICKER_ITEMS=[
 function renderTicker(){
   const track=document.getElementById('ticker-track');
   if(!track)return;
-  // Triple the items for seamless loop (CSS animates -33.333%)
   const html=TICKER_ITEMS.map(i=>`<span class="ticker-item"><strong>${i.v}</strong>${i.l}</span><span class="ticker-sep">|</span>`).join('');
   track.innerHTML=html+html+html;
 }
@@ -87,7 +86,6 @@ function renderTicker(){
 // WHO CARDS
 function renderWhoCards(){
   const g=document.getElementById('who-cards');if(!g)return;
-  const T=k=>typeof t==='function'?t(k):k;
   const cards=[
     {icon:'<path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/>',tk:'who_corp',td:'who_corp_d'},
     {icon:'<path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/>',tk:'who_edu',td:'who_edu_d'},
@@ -110,7 +108,7 @@ function renderFormats(){
   g.innerHTML=items.map(i=>`<div class="format-item"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#4da6ff" stroke-width="1.5">${i.icon}</svg><div class="format-text"><strong data-i18n="${i.tk}">${def[i.tk]}</strong><span data-i18n="${i.ts}">${def[i.ts]}</span></div></div>`).join('');
 }
 
-// 16 NUMBERS (different from ticker)
+// 16 NUMBERS
 const NUMBERS_16=[
   {v:'1 in 8',l:'Children globally affected by online sexual exploitation (Childlight 2023)'},
   {v:'6,344%',l:'Increase in AI-generated CSAM reports from 2023 to 2024'},
@@ -134,7 +132,7 @@ function renderNumbers(){
   g.innerHTML=NUMBERS_16.map(n=>`<div class="number-card"><div class="number-val">${n.v}</div><div class="number-label">${n.l}</div></div>`).join('');
 }
 
-// MODULES — 15 total
+// MODULES
 const DEFAULT_MODULES=[
   {id:'m1',icon:'shield',title:'Cybersecurity Fundamentals',desc:'Core concepts: threats, attack vectors, defence strategies, safe digital habits. Real case studies from the field.',level:'Foundation',tags:['3-4 hours','Online / Onsite','Certificate'],visible:true},
   {id:'m2',icon:'search',title:'Digital Forensics Introduction',desc:'How digital investigations are conducted: evidence collection, chain of custody, open-source forensic tools.',level:'Intermediate',tags:['4 hours','Online / Onsite','Certificate'],visible:true},
@@ -181,7 +179,7 @@ function renderModules(){
 }
 function bookModule(title){showTab('calendar',null);setTimeout(()=>{const s=document.getElementById('book-module');if(s){for(const o of s.options){if(o.value===title){o.selected=true;break;}}updateDiscountPreview();}showToast('Module selected. Choose a date and time.');},120);}
 
-// SERVICES — ensure Online/Onsite not duplicated
+// SERVICES
 const DEFAULT_SERVICES={
   individual:[
     {title:'Personal Digital Safety Audit',desc:'Full review of devices, accounts, and online presence. Action plan included.',dur:'90 min',mode:'Online / Onsite',mc:'mode-both',visible:true},
@@ -265,10 +263,11 @@ function updateDiscountPreview(){
   else el.style.display='none';
 }
 
-// APPOINTMENTS
-let appointments=[];
-}
-function saveAppointments(){try{localStorage.setItem('do_appointments',JSON.stringify(appointments));}catch(e){}}
+// APPOINTMENTS (FIXED SYNTAX ERROR)
+let appointments = [];
+try { appointments = JSON.parse(localStorage.getItem('do_appointments') || '[]'); } catch(e) { appointments = []; }
+// Note: Real bookings are handled by Cal.com. This array is for local admin tracking if needed.
+function saveAppointments() { try { localStorage.setItem('do_appointments', JSON.stringify(appointments)); } catch(e) {} }
 
 function generateMeetLink(apptId){
   const h=apptId.toLowerCase().replace(/[^a-z0-9]/g,'').padEnd(10,'x').slice(0,10);
@@ -297,7 +296,6 @@ function submitBooking(){
   const appt={id,name,email,module:mod,module2:mod2,module3:mod3,date:selectedDate,time:selectedTime,format:fmt,org:document.getElementById('book-org')?.value.trim()||'',notes:document.getElementById('book-notes')?.value.trim()||'',status:'pending',meetLink,discount:disc,bookedAt:new Date().toISOString()};
   appointments.unshift(appt);saveAppointments();
   showToast(`Booking submitted. ID: ${id}${disc?' — '+disc+' discount noted.':''}`);
-  
   ['book-name','book-email','book-phone','book-org','book-notes'].forEach(i=>{const e=document.getElementById(i);if(e)e.value='';});
   ['book-module','book-module2','book-module3','book-format'].forEach(i=>{const e=document.getElementById(i);if(e)e.value='';});
   const dp=document.getElementById('discount-preview');if(dp)dp.style.display='none';
@@ -306,8 +304,7 @@ function submitBooking(){
   setTimeout(()=>showUpsell(mod,id),1200);
 }
 
-
-
+// CONTACT FORM (SAFE PLACEHOLDER)
 function submitContact() {
   // Handled securely by FormSubmit.co in HTML. This prevents console errors.
   showToast('Message sent. You will hear back within 24 hours.');
@@ -360,7 +357,7 @@ function renderTeam(){
   const g=document.getElementById('team-grid');if(!g)return;
   const team=getTeam();
   if(!team.length){g.innerHTML='<div class="empty-state"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg><h3>Team members coming soon</h3><p>Partners and collaborators will appear here.</p></div>';return;}
-  const hasBooking=false; // visitors always see blurred contacts
+  const hasBooking=false;
   g.innerHTML=team.map(m=>`<div class="team-card"><div>${m.photo?`<img class="team-photo" src="${m.photo}" alt="${m.name}">`:`<div class="team-photo-placeholder">${m.name.slice(0,2).toUpperCase()}</div>`}</div><div class="team-name">${m.name}</div><div class="team-title">${m.specialization||''}</div><div class="team-edu">${m.education||''}</div>${m.company?`<div class="team-company">${m.company}</div>`:''}<div class="team-contacts"><span class="team-contact-blur ${hasBooking?'unblurred':''}">${m.linkedin||'LinkedIn'}</span><span class="team-contact-blur ${hasBooking?'unblurred':''}">${m.email||'Email'}</span></div><div class="team-locked-note" style="${hasBooking?'display:none':''}">Contact details visible after confirmed booking.</div></div>`).join('');
 }
 
