@@ -257,7 +257,22 @@
     <h2 class="section-title" data-i18n="contact_title">Contact &amp; Inquiry</h2>
     <p class="section-subtitle" data-i18n="contact_sub">Send a message and I will respond within 24 hours.</p>
     <div class="contact-layout">
-     <div class="contact-form-card">
+<div class="contact-form-card">
+  <form action="https://formsubmit.co/gds_gr@hotmail.gr" method="POST">
+    <input type="text" name="_honey" style="display:none">
+    <input type="hidden" name="_captcha" value="false">
+    <input type="hidden" name="_next" value="https://dataomerta.github.io/do-training/#contact">
+    <input type="hidden" name="_subject" value="New Inquiry from Data Omerta Website">
+
+    <div class="form-group"><label data-i18n="form_name">Full Name</label><input type="text" name="name" required></div>
+    <div class="form-group"><label data-i18n="form_email">Email</label><input type="email" name="email" required></div>
+    <div class="form-group"><label data-i18n="contact_subject">Subject</label><input type="text" name="subject" required></div>
+    <div class="form-group"><label data-i18n="contact_message">Message</label><textarea name="message" rows="6" required></textarea></div>
+    
+    <!-- Notice: NO onclick="submitContact()" here. Standard HTML submission handles it. -->
+    <button type="submit" class="btn btn-primary btn-full" data-i18n="contact_send">Send Message</button>
+  </form>
+</div>
   <!-- FormSubmit.co handles the email sending securely -->
   <form action="https://formsubmit.co/gds_gr@hotmail.gr" method="POST">
     <!-- Anti-spam honeypot (hidden) -->
