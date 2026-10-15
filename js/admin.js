@@ -1,7 +1,8 @@
 'use strict';
 
 const ADMIN_USER = 'admin';
-const ADMIN_PASS = 'admin123!@#';
+// ⚠️ CRITICAL: Change this to a strong, unique password before pushing to GitHub!
+const ADMIN_PASS = 'ChangeThisToYourOwnStrongPassword2024!'; 
 
 function doAdminLogin() {
   const user = document.getElementById('admin-user')?.value.trim();
@@ -95,7 +96,7 @@ function renderAdminDashboard() {
   </div>`;
 }
 
-// APPOINTMENTS ADMIN
+// APPOINTMENTS ADMIN (FIXED: Added Issue Cert button back and made Delete available for all)
 function renderAdminAppointments(filtered) {
   const list = document.getElementById('appointments-list'); if (!list) return;
   const data = filtered !== undefined ? filtered : appointments;
@@ -107,12 +108,12 @@ function renderAdminAppointments(filtered) {
     const mods = [a.module, a.module2, a.module3].filter(Boolean).join(' + ');
     const disc = a.discount ? ` · <span style="color:#ffd700;font-weight:600">${a.discount} off</span>` : '';
     const meet = a.meetLink ? `<a href="${a.meetLink}" target="_blank" class="meet-link"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="15" height="10" rx="2"/><path d="M17 9l5-2v10l-5-2V9z"/></svg>Meet</a>` : '';
-    return `<div class="appt-card"><div class="appt-info"><h4>${a.name}${a.org ? ` <span style="font-weight:400;color:var(--text-m)">· ${a.org}</span>` : ''}</h4><span>${a.email}</span><span>${mods}${disc}</span><span>${a.date} at ${a.time} · ${a.format}</span>${a.notes ? `<span style="font-style:italic">${a.notes}</span>` : ''} ${meet}</div><div class="appt-meta"><span class="status-badge status-${a.status}">${a.status}</span><div class="appt-actions">${a.status === 'pending' ? `<button class="appt-btn success" onclick="adminConfirmAppt('${a.id}')">Confirm</button>` : ''}${a.status === 'confirmed' ? `<button class="appt-btn success" onclick="adminUpdateStatus('${a.id}','completed')">Done</button>` : ''}${a.status !== 'cancelled' && a.status !== 'completed' ? `<button class="appt-btn" onclick="openReschedule('${a.id}')">Reschedule</button><button class="appt-btn danger" onclick="adminUpdateStatus('${a.id}','cancelled')">Cancel</button>` : ''}${a.status === 'completed' ? `<button class="appt-btn danger" onclick="deleteAppointment('${a.id}')" title="Delete">Delete</button></div></div></div>`;
+    return `<div class="appt-card"><div class="appt-info"><h4>${a.name}${a.org ? ` <span style="font-weight:400;color:var(--text-m)">· ${a.org}</span>` : ''}</h4><span>${a.email}</span><span>${mods}${disc}</span><span>${a.date} at ${a.time} · ${a.format}</span>${a.notes ? `<span style="font-style:italic">${a.notes}</span>` : ''} ${meet}</div><div class="appt-meta"><span class="status-badge status-${a.status}">${a.status}</span><div class="appt-actions">${a.status === 'pending' ? `<button class="appt-btn success" onclick="adminConfirmAppt('${a.id}')">Confirm</button>` : ''}${a.status === 'confirmed' ? `<button class="appt-btn success" onclick="adminUpdateStatus('${a.id}','completed')">Done</button>` : ''}${a.status !== 'cancelled' && a.status !== 'completed' ? `<button class="appt-btn" onclick="openReschedule('${a.id}')">Reschedule</button><button class="appt-btn danger" onclick="adminUpdateStatus('${a.id}','cancelled')">Cancel</button>` : ''}${a.status === 'completed' ? `<button class="appt-btn gold" onclick="prefillCert('${a.id}')">Issue Cert</button>` : ''}<button class="appt-btn danger" onclick="deleteAppointment('${a.id}')" title="Delete">Delete</button></div></div></div>`;
   }).join('');
 }
-function adminConfirmAppt(id){const a=appointments.find(x=>x.id===id);if(!a)return;a.status='confirmed';saveAppointments();if(typeof sendClientConfirmEmail==='function')sendClientConfirmEmail(a);renderAdminAppointments();renderAdminDashboard();if(typeof showToast==='function')showToast(`Confirmed. Email sent to ${a.email}.`);}
-function adminUpdateStatus(id,status){const a=appointments.find(x=>x.id===id);if(!a)return;a.status=status;saveAppointments();if(status==='cancelled')notifyClientChange(a,'cancelled');renderAdminAppointments();renderAdminDashboard();if(typeof showToast==='function')showToast(`Appointment ${status}.`);}
-function notifyClientChange(appt,type){if(typeof sendClientConfirmEmail!=='function')return;const prev=appt.notes;appt.notes=`[${type.toUpperCase()}] ${prev}`;sendClientConfirmEmail(appt);appt.notes=prev;}
+
+function adminConfirmAppt(id){const a=appointments.find(x=>x.id===id);if(!a)return;a.status='confirmed';saveAppointments();renderAdminAppointments();renderAdminDashboard();if(typeof showToast==='function')showToast(`Confirmed.`);}
+function adminUpdateStatus(id,status){const a=appointments.find(x=>x.id===id);if(!a)return;a.status=status;saveAppointments();renderAdminAppointments();renderAdminDashboard();if(typeof showToast==='function')showToast(`Appointment ${status}.`);}
 
 function openReschedule(id){
   const a=appointments.find(x=>x.id===id);if(!a)return;
@@ -131,9 +132,9 @@ function saveReschedule(id){
   if(!nd||!nt)return;
   a.date=nd;a.time=nt;a.notes=nn||a.notes;
   if(a.meetLink)a.meetLink=typeof generateMeetLink==='function'?generateMeetLink(a.id+nd):a.meetLink;
-  saveAppointments();notifyClientChange(a,'rescheduled');
+  saveAppointments();
   document.getElementById('appt-edit-modal').style.display='none';
-  renderAdminAppointments();if(typeof showToast==='function')showToast('Rescheduled. Client notified.');
+  renderAdminAppointments();if(typeof showToast==='function')showToast('Rescheduled.');
 }
 
 function prefillCert(id){
@@ -159,6 +160,8 @@ function exportAppointments(){
   const url=URL.createObjectURL(blob);const l=document.createElement('a');l.href=url;l.download=`appointments_${new Date().toISOString().slice(0,10)}.csv`;l.click();URL.revokeObjectURL(url);
   if(typeof showToast==='function')showToast('Exported as CSV.');
 }
+
+// DELETE FUNCTIONS (ADDED)
 function deleteAppointment(id) {
   if (!confirm('Are you sure you want to permanently delete this appointment?')) return;
   appointments = appointments.filter(a => a.id !== id);
@@ -335,11 +338,6 @@ function saveTeamEditor(idx){
   const team=typeof getTeam==='function'?getTeam():[];
   if(idx!==null)team[idx]=entry;else team.push(entry);
   try{localStorage.setItem('do_team',JSON.stringify(team));}catch(e){}
-  // Notify new member by email if emailjs configured
-  if(idx===null&&entry.email&&typeof sendAdminNotificationEmail!=='undefined'){
-    const fakeAppt={id:'TEAM',name:entry.name,email:entry.email,module:'Team/Partner Invitation',module2:'',module3:'',date:new Date().toISOString().slice(0,10),time:'',format:'Digital',org:entry.company||'',notes:`You have been added to the DO Training team. LinkedIn: ${entry.linkedin||'N/A'}`,meetLink:'',discount:''};
-    if(typeof sendClientConfirmEmail==='function')sendClientConfirmEmail(fakeAppt);
-  }
   document.getElementById('edit-modal').style.display='none';
   renderTeamManager();if(typeof renderTeam==='function')renderTeam();if(typeof showToast==='function')showToast('Member saved.');
 }
