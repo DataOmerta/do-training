@@ -107,7 +107,7 @@ function renderAdminAppointments(filtered) {
     const mods = [a.module, a.module2, a.module3].filter(Boolean).join(' + ');
     const disc = a.discount ? ` · <span style="color:#ffd700;font-weight:600">${a.discount} off</span>` : '';
     const meet = a.meetLink ? `<a href="${a.meetLink}" target="_blank" class="meet-link"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="15" height="10" rx="2"/><path d="M17 9l5-2v10l-5-2V9z"/></svg>Meet</a>` : '';
-    return `<div class="appt-card"><div class="appt-info"><h4>${a.name}${a.org ? ` <span style="font-weight:400;color:var(--text-m)">· ${a.org}</span>` : ''}</h4><span>${a.email}</span><span>${mods}${disc}</span><span>${a.date} at ${a.time} · ${a.format}</span>${a.notes ? `<span style="font-style:italic">${a.notes}</span>` : ''} ${meet}</div><div class="appt-meta"><span class="status-badge status-${a.status}">${a.status}</span><div class="appt-actions">${a.status === 'pending' ? `<button class="appt-btn success" onclick="adminConfirmAppt('${a.id}')">Confirm</button>` : ''}${a.status === 'confirmed' ? `<button class="appt-btn success" onclick="adminUpdateStatus('${a.id}','completed')">Done</button>` : ''}${a.status !== 'cancelled' && a.status !== 'completed' ? `<button class="appt-btn" onclick="openReschedule('${a.id}')">Reschedule</button><button class="appt-btn danger" onclick="adminUpdateStatus('${a.id}','cancelled')">Cancel</button>` : ''}${a.status === 'completed' ? `<button class="appt-btn gold" onclick="prefillCert('${a.id}')">Issue Cert</button>` : ''}<button class="appt-btn danger" onclick="deleteAppointment('${a.id}')" title="Delete">Delete</button></div></div></div>`;
+    return `<div class="appt-card"><div class="appt-info"><h4>${a.name}${a.org ? ` <span style="font-weight:400;color:var(--text-m)">· ${a.org}</span>` : ''}</h4><span>${a.email}</span><span>${mods}${disc}</span><span>${a.date} at ${a.time} · ${a.format}</span>${a.notes ? `<span style="font-style:italic">${a.notes}</span>` : ''} ${meet}</div><div class="appt-meta"><span class="status-badge status-${a.status}">${a.status}</span><div class="appt-actions">${a.status === 'pending' ? `<button class="appt-btn success" onclick="adminConfirmAppt('${a.id}')">Confirm</button>` : ''}${a.status === 'confirmed' ? `<button class="appt-btn success" onclick="adminUpdateStatus('${a.id}','completed')">Done</button>` : ''}${a.status !== 'cancelled' && a.status !== 'completed' ? `<button class="appt-btn" onclick="openReschedule('${a.id}')">Reschedule</button><button class="appt-btn danger" onclick="adminUpdateStatus('${a.id}','cancelled')">Cancel</button>` : ''}${a.status === 'completed' ? `<button class="appt-btn danger" onclick="deleteAppointment('${a.id}')" title="Delete">Delete</button></div></div></div>`;
   }).join('');
 }
 function adminConfirmAppt(id){const a=appointments.find(x=>x.id===id);if(!a)return;a.status='confirmed';saveAppointments();if(typeof sendClientConfirmEmail==='function')sendClientConfirmEmail(a);renderAdminAppointments();renderAdminDashboard();if(typeof showToast==='function')showToast(`Confirmed. Email sent to ${a.email}.`);}
@@ -169,7 +169,7 @@ function deleteAppointment(id) {
 }
 
 function clearAllAppointments() {
-  if (!confirm('WARNING: This will permanently delete ALL appointments from the list. Are you sure?')) return;
+  if (!confirm('WARNING: This will permanently delete ALL appointments. Are you sure?')) return;
   appointments = [];
   saveAppointments();
   renderAdminAppointments();
